@@ -622,11 +622,11 @@
       <p class="body-text" style="max-width:560px;margin-bottom:3rem;">Our wedding will be an intimate celebration with close friends and family. We would love to see you at one of our open houses.</p>
       <div class="list-item">
         <div class="item-title">Utah Open House</div>
-        <div class="item-detail">June 24th, 2026<br>Time &amp; address TBD</div>
+        <div class="item-detail">June 24th, 2026 · 7:00 PM – 9:00 PM<br>10262 N Honeycut Cir, Cedar Hills, UT 84062</div>
       </div>
       <div class="list-item">
         <div class="item-title">Oregon Open House</div>
-        <div class="item-detail">June 26th, 2026<br>Time &amp; address TBD</div>
+        <div class="item-detail">Saturday, June 27th, 2026 · 6:30 PM<br>91370 Triple Oaks Dr, Eugene, OR 97408</div>
       </div>
     </div>
   </section>
@@ -648,7 +648,7 @@
     <div class="reg-center fade-in">
       <div class="label-text">Gifts</div>
       <h2>Your Presence Is<br>The Greatest Gift</h2>
-      <a href="#" class="btn btn-dark btn-arrow">View Our Registry</a>
+      <a href="https://www.amazon.com/wedding/share/wildingregistry" target="_blank" class="btn btn-dark btn-arrow">View Our Registry</a>
     </div>
   </section>
 
@@ -747,28 +747,91 @@
       sealing:       { name: "Sealing",          detail: "May 29, 2:00 PM · Oquirrh Mountain Temple" },
       dinner:        { name: "Dinner",           detail: "May 29, 5:00 PM · The Azalea" },
       reception:     { name: "Reception",        detail: "May 29, 7:00 PM · The Azalea" },
-      openhouse_ut:  { name: "Utah Open House",  detail: "June 24th · Time & address TBD" },
-      openhouse_or:  { name: "Oregon Open House", detail: "June 26th · Time & address TBD" }
+      openhouse_ut:  { name: "Utah Open House",  detail: "June 24th · 7:00 – 9:00 PM · Cedar Hills, UT" },
+      openhouse_or:  { name: "Oregon Open House", detail: "Saturday, June 27th · 6:30 PM · Eugene, OR" }
     };
-    // Wedding events vs open house events
     const WEDDING_EVENTS = ["sealing", "dinner", "reception"];
     const OPENHOUSE_EVENTS = ["openhouse_ut", "openhouse_or"];
 
-    const GUESTS = [
-      { first:"Test",   last:"Test",    familyId:"test-1",    events:["sealing","dinner","reception"] },
-      { first:"John",   last:"Smith",   familyId:"smith-1",   events:["sealing","dinner","reception"] },
-      { first:"Jane",   last:"Smith",   familyId:"smith-1",   events:["sealing","dinner","reception"] },
-      { first:"Emily",  last:"Smith",   familyId:"smith-1",   events:["reception"] },
-      { first:"Sarah",  last:"Johnson", familyId:"johnson-1", events:["openhouse"] },
-      { first:"Carlos", last:"Garcia",  familyId:"garcia-1",  events:["dinner","reception"] },
-      { first:"Maria",  last:"Garcia",  familyId:"garcia-1",  events:["dinner","reception"] },
+    const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vT6JaKYQC_O4EKatRZHpbC-MkZPHFsonz5gFkA1gKsV15SHQy6T86sZF6p7LnMRMEGfkf4pHSAHo5Ct/pub?output=csv";
+
+    let GUESTS = [];
+    let guestsLoaded = false;
+
+    // Column mapping: First Name, Last Name, FamilyID, Sealing, Sealing RSVP, Dinner, Dinner RSVP, Reception, Reception RSVP
+    // Future open house columns: Utah Open House, Utah OH RSVP, Oregon Open House, Oregon OH RSVP
+    function parseCSV(csv) {
+      const lines = csv.split('\n').map(l => l.trim()).filter(l => l);
+      const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
+      const guests = [];
+      for (let i = 1; i < lines.length; i++) {
+        // Handle commas inside quoted fields
+        const row = lines[i].match(/(".*?"|[^,]+)/g)?.map(v => v.replace(/^"|"$/g, '').trim()) || [];
+        if (row.length < 4) continue;
+        const first = row[0], last = row[1], familyId = row[2];
+        if (!first || !last) continue;
+        const events = [];
+        // Map columns to events
+        const colMap = { 'sealing': 'sealing', 'dinner': 'dinner', 'reception': 'reception', 'utah open house': 'openhouse_ut', 'oregon open house': 'openhouse_or' };
+        headers.forEach((h, idx) => {
+          const eventKey = colMap[h];
+          if (eventKey && row[idx] && row[idx].toLowerCase() === 'true') {
+            events.push(eventKey);
+          }
+        });
+        guests.push({ first, last, familyId, events });
+      }
+      return guests;
+    }
+
+    // Fallback guest data for local testing (remove once deployed)
+    const FALLBACK_GUESTS = [
+      { first:"Luke", last:"Wilding", familyId:"jillian-lover", events:["sealing","dinner","reception"] },
+      { first:"Kyle", last:"Peterson", familyId:"peterson-immediate", events:["sealing","dinner","reception"] },
+      { first:"Amy", last:"Peterson", familyId:"peterson-immediate", events:["sealing","dinner","reception"] },
+      { first:"Hayden", last:"Peterson", familyId:"hayden-anna", events:["sealing","dinner","reception"] },
+      { first:"Anna", last:"Peterson", familyId:"hayden-anna", events:["sealing","dinner","reception"] },
+      { first:"Kara", last:"Peterson", familyId:"peterson-immediate", events:["sealing","dinner","reception"] },
+      { first:"Kate", last:"Peterson", familyId:"peterson-immediate", events:["dinner","reception"] },
+      { first:"Jim", last:"Deehr", familyId:"deehr-1", events:["sealing","dinner","reception"] },
+      { first:"Kleone", last:"Deehr", familyId:"deehr-1", events:["sealing","dinner","reception"] },
+      { first:"Lisa", last:"Criddle", familyId:"criddle-1", events:["sealing","dinner","reception"] },
+      { first:"Joel", last:"Deehr", familyId:"deehr-2", events:["sealing","dinner","reception"] },
+      { first:"Mignon", last:"Deehr", familyId:"deehr-2", events:["sealing","dinner","reception"] },
+      { first:"Cameron", last:"Criddle", familyId:"criddle-1", events:["sealing","dinner","reception"] },
+      { first:"Marisa", last:"Michael", familyId:"michael-1", events:["sealing","dinner","reception"] },
+      { first:"Wayne", last:"Michael", familyId:"michael-1", events:["sealing","dinner","reception"] },
+      { first:"Dawson", last:"Criddle", familyId:"criddle-2", events:["sealing","dinner","reception"] },
+      { first:"Jenny", last:"Criddle", familyId:"criddle-2", events:["sealing","dinner","reception"] },
+      { first:"Lauren", last:"Criddle", familyId:"criddle-3", events:["dinner","reception"] },
+      { first:"Derek", last:"Criddle", familyId:"criddle-1", events:["dinner","reception"] },
+      { first:"Clay", last:"Kellar", familyId:"criddle-3", events:["dinner","reception"] },
+      { first:"Nimai", last:"Deehr", familyId:"deehr-3", events:["dinner","reception"] },
+      { first:"John", last:"Peterson", familyId:"peterson-2", events:["sealing","dinner","reception"] },
     ];
+
+    async function loadGuests() {
+      try {
+        const res = await fetch(SHEET_CSV_URL);
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const csv = await res.text();
+        GUESTS = parseCSV(csv);
+        if (GUESTS.length > 0) { guestsLoaded = true; return; }
+      } catch (e) {
+        console.warn('Could not fetch Google Sheet, using fallback:', e);
+      }
+      // Use fallback if fetch fails (e.g. local file:// testing)
+      GUESTS = FALLBACK_GUESTS;
+      guestsLoaded = true;
+    }
+    loadGuests();
 
     let currentFamily = [], rsvpSelections = {};
 
     function openRSVP() {
       document.getElementById('rsvpModal').classList.add('active');
       document.body.style.overflow = 'hidden'; resetForm();
+      if (!guestsLoaded) loadGuests();
     }
     function closeRSVP() {
       document.getElementById('rsvpModal').classList.remove('active');
@@ -795,6 +858,7 @@
       const last  = document.getElementById('lastName').value.trim().toLowerCase();
       const err   = document.getElementById('lookupError');
       if (!first || !last) { err.textContent = 'Please enter both your first and last name.'; err.classList.add('visible'); return; }
+      if (!guestsLoaded || GUESTS.length === 0) { err.textContent = 'Still loading the guest list — please try again in a moment.'; err.classList.add('visible'); loadGuests(); return; }
       const guest = GUESTS.find(g => g.first.toLowerCase() === first && g.last.toLowerCase() === last);
       if (!guest) { err.textContent = "We couldn\u2019t find that name on our guest list. Please check the spelling or try the name on your invitation."; err.classList.add('visible'); return; }
       err.classList.remove('visible');
