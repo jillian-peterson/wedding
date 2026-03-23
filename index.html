@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jillian + Luke — 05.29.26</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'The Impressionist';
+      src: url('assets/fonts/theimpressionist.ttf') format('truetype'),
+           url('assets/fonts/theimpressionist.otf') format('opentype');
+      font-weight: normal; font-style: normal; font-display: swap;
+    }
+
+    :root {
+      --white: #FFFFFF;
+      --off-white: #FAFAF8;
+      --cream: #F5F0EB;
+      --burgundy: #4A1A2E;
+      --burgundy-light: #6B2D45;
+      --text: #1A1A1A;
+      --text-mid: #555;
+      --text-light: #888;
+      --line: #E0E0E0;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--white);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      padding: 1.8rem 3.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    nav .logo {
+      font-family: 'Inter', sans-serif; font-weight: 700;
+      font-size: 1.1rem; letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--text); text-decoration: none;
+    }
+    nav ul { list-style: none; display: flex; gap: 2.5rem; }
+    nav a {
+      font-family: 'Inter', sans-serif; font-weight: 500;
+      font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text); text-decoration: none; transition: opacity 0.3s;
+    }
+    nav a:hover { opacity: 0.6; }
+    .menu-toggle {
+      display: none; background: none; border: none; cursor: pointer; padding: 0.5rem;
+    }
+    .menu-toggle span {
+      display: block; width: 24px; height: 1.5px; background: var(--text); margin: 5px 0;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; height: 100vh; overflow: hidden;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 3.5rem; padding-bottom: 6rem;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+    }
+    .hero-bg img {
+      width: 100%; height: 100%; object-fit: cover;
+      object-position: 35% center;
+      filter: brightness(0.7);
+    }
+    .hero-content {
+      position: relative; z-index: 1; color: white;
+    }
+    .hero-label {
+      font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      margin-bottom: 1.2rem; opacity: 0.8;
+    }
+    .hero-title {
+      position: relative;
+      display: inline-block;
+    }
+    .hero-title .forever {
+      font-family: 'Inter', sans-serif; font-weight: 800;
+      font-size: clamp(4rem, 9vw, 8rem);
+      text-transform: uppercase;
+      letter-spacing: -0.03em;
+      line-height: 1;
+      color: var(--text);
+    }
+    .hero-title .endlessly {
+      font-family: 'The Impressionist', cursive;
+      font-weight: normal; text-transform: none;
+      font-size: clamp(3.5rem, 8vw, 7rem);
+      line-height: 1;
+      color: white;
+      margin-top: -0.35em;
+      display: block;
+      position: relative;
+      padding-left: 0.15em;
+    }
+    .hero-scroll {
+      position: absolute; bottom: 3.5rem; right: 3.5rem; z-index: 1;
+      font-size: 0.6rem; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: white; opacity: 0.7;
+    }
+    .hero-float {
+      position: absolute; top: 50%; right: 3.5rem; z-index: 1;
+      transform: translateY(-50%); color: white; max-width: 280px;
+    }
+    .hero-float img {
+      width: 160px; height: 75px; object-fit: cover; margin-bottom: 1rem;
+      border: 3px solid rgba(255,255,255,0.2);
+    }
+    .hero-float p {
+      font-size: 0.88rem; line-height: 1.65; font-weight: 300; opacity: 0.9;
+    }
+
+    /* ── SECTION SHARED ── */
+    .section-pad { padding: 8rem 3.5rem; }
+    .section-pad-lg { padding: 12rem 3.5rem; }
+
+    .bold-heading {
+      font-family: 'Inter', sans-serif; font-weight: 800;
+      font-size: clamp(2rem, 4.5vw, 3.5rem);
+      line-height: 1.1; text-transform: uppercase;
+      letter-spacing: -0.02em; color: var(--text);
+    }
+    .body-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; line-height: 1.75; font-weight: 300;
+      color: var(--text-mid);
+    }
+    .label-text {
+      font-size: 0.6rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--text-light);
+    }
+
+    /* ── SPLIT INTRO ── */
+    .split-intro {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: start;
+    }
+    .split-intro .body-text { max-width: 450px; }
+
+    /* ── BIOS ── */
+    .bios {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3rem; margin-top: 6rem; padding-top: 6rem;
+      border-top: 1px solid var(--line);
+      max-width: 900px; margin-left: auto; margin-right: auto;
+    }
+    .bio-card:first-child { text-align: right; }
+    .bio-card:last-child { text-align: left; }
+    .bio-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; line-height: 1.75; font-weight: 300;
+      color: var(--text-mid); font-style: italic;
+      max-width: 360px; margin-bottom: 3rem;
+    }
+    .bio-card:first-child .bio-text { margin-left: auto; }
+    .bio-name {
+      font-family: 'Inter', sans-serif; font-weight: 700;
+      font-size: 1rem; letter-spacing: 0.04em;
+      margin-bottom: 0.35rem;
+    }
+    .bio-role {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; color: var(--text-light); font-weight: 300;
+    }
+
+    /* ── SCROLLING GALLERY ── */
+    .scroll-gallery-wrap {
+      margin-top: 5rem;
+      width: 100%;
+    }
+    .scroll-gallery {
+      display: flex;
+      gap: 1rem;
+      overflow-x: scroll;
+      -webkit-overflow-scrolling: touch;
+      padding: 0 4rem 1.5rem;
+      scrollbar-width: none;
+      cursor: grab;
+    }
+    .scroll-gallery::-webkit-scrollbar { display: none; }
+    .scroll-gallery.dragging { cursor: grabbing; }
+    .scroll-gallery-item {
+      flex: 0 0 320px;
+      height: 320px;
+      overflow: hidden;
+    }
+    .scroll-gallery-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.7s ease;
+      pointer-events: none;
+    }
+    .scroll-gallery-item:hover img {
+      transform: scale(1.04);
+    }
+    .scroll-hint {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0.6rem; margin-top: 1.2rem;
+      font-family: 'Inter', sans-serif; font-size: 0.55rem;
+      font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--text-light); opacity: 0.5;
+      transition: opacity 0.6s ease;
+    }
+    .scroll-hint.hidden { opacity: 0; pointer-events: none; }
+    .scroll-hint svg {
+      width: 16px; height: 16px;
+      animation: nudge 1.8s ease-in-out infinite;
+    }
+    @keyframes nudge {
+      0%, 100% { transform: translateX(0); }
+      50% { transform: translateX(5px); }
+    }
+
+    /* ── ESSAY SECTION ── */
+    .essay-section {
+      display: grid; grid-template-columns: 1fr 1fr;
+      min-height: 80vh;
+    }
+    .essay-photo-wrap {
+      position: sticky; top: 0; height: 100vh;
+      overflow: hidden;
+    }
+    .essay-photo-wrap img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    .essay-body {
+      padding: 6rem 3.5rem;
+      display: flex; flex-direction: column; justify-content: center;
+      max-width: 380px; margin: 0 auto;
+    }
+    .essay-body p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.95rem; line-height: 1.8; font-weight: 300;
+      color: var(--text-mid);
+      margin-bottom: 1.2rem;
+    }
+    .essay-body p:last-child { margin-bottom: 0; }
+    .essay-body p.essay-closing {
+      font-family: 'The Impressionist', cursive;
+      font-size: 1.8rem; color: var(--text);
+      line-height: 1.2; margin-top: 1rem;
+    }
+
+    /* ── SPLIT SECTION ── */
+    .split-section {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 6rem; align-items: start;
+    }
+
+    /* ── LIST ITEMS WITH DIVIDERS ── */
+    .list-item {
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--line);
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 3rem; align-items: center;
+    }
+    .list-item:first-child { border-top: 1px solid var(--line); }
+    .list-item .item-title {
+      font-family: 'Inter', sans-serif; font-weight: 700;
+      font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .list-item .item-detail {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; line-height: 1.7; color: var(--text-mid); font-weight: 300;
+    }
+
+    /* ── FLOATING REGISTRY ── */
+    .registry-floating {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      overflow: hidden;
+      padding: 8rem 2rem;
+    }
+    .registry-floating .reg-center {
+      position: relative; z-index: 2;
+    }
+    .registry-floating .reg-center .label-text {
+      margin-bottom: 1.5rem;
+    }
+    .registry-floating .reg-center h2 {
+      font-family: 'Inter', sans-serif; font-weight: 800;
+      font-size: clamp(1.8rem, 4vw, 3.2rem);
+      text-transform: uppercase; letter-spacing: -0.02em;
+      line-height: 1.1; margin-bottom: 2.5rem;
+    }
+    .float-photo {
+      position: absolute;
+      overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+      transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease;
+      cursor: default;
+    }
+    .float-photo:hover {
+      transform: scale(1.05) !important;
+      box-shadow: 0 16px 60px rgba(0,0,0,0.15);
+      z-index: 10;
+    }
+    .float-photo img {
+      width: 100%; height: 100%; object-fit: cover;
+    }
+    /* Photo 1 — bottom left */
+    .float-photo-1 {
+      width: 220px; height: 290px;
+      bottom: 8%; left: 8%;
+    }
+    /* Photo 2 — top right */
+    .float-photo-2 {
+      width: 180px; height: 230px;
+      top: 5%; right: 10%;
+    }
+    /* Photo 3 — bottom right */
+    .float-photo-3 {
+      width: 240px; height: 310px;
+      bottom: 6%; right: 8%;
+    }
+    /* Photo 4 — top left */
+    .float-photo-4 {
+      width: 200px; height: 270px;
+      top: 8%; left: 6%;
+    }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      padding: 1rem 2.5rem;
+      font-family: 'Inter', sans-serif; font-weight: 600;
+      font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: all 0.35s ease;
+    }
+    .btn-white {
+      background: white; color: var(--text);
+    }
+    .btn-white:hover { background: var(--cream); }
+    .btn-dark {
+      background: var(--text); color: white;
+    }
+    .btn-dark:hover { background: #333; }
+    .btn-outline-white {
+      background: transparent; color: white;
+      border: 1px solid rgba(255,255,255,0.4);
+    }
+    .btn-outline-white:hover { background: rgba(255,255,255,0.1); }
+    .btn-outline-dark {
+      background: transparent; color: var(--text);
+      border: 1px solid var(--line);
+    }
+    .btn-outline-dark:hover { background: var(--text); color: white; }
+    .btn-arrow::after { content: '\2197'; font-size: 0.8rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 3rem 3.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      border-top: 1px solid var(--line);
+      font-size: 0.6rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-light);
+    }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 1000;
+      background: rgba(26, 26, 26, 0.6); backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      justify-content: center; align-items: center; padding: 1.5rem;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal {
+      background: var(--white); max-width: 520px; width: 100%;
+      max-height: 90vh; overflow-y: auto; position: relative;
+    }
+    .modal-header { padding: 2.5rem 2.5rem 0; text-align: center; }
+    .modal-header .modal-title {
+      font-family: 'The Impressionist', cursive; font-size: 2.5rem;
+      color: var(--burgundy); margin-bottom: 0.5rem;
+    }
+    .modal-header .modal-subtitle {
+      font-size: 0.62rem; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--text-light);
+    }
+    .modal-close {
+      position: absolute; top: 1.2rem; right: 1.5rem;
+      background: none; border: none; font-size: 1.3rem; color: var(--text-light);
+      cursor: pointer; transition: color 0.2s;
+    }
+    .modal-close:hover { color: var(--text); }
+    .modal-body { padding: 2rem 2.5rem 2.5rem; }
+    .step { display: none; }
+    .step.active { display: block; }
+
+    .name-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 0.8rem;
+    }
+    .form-input {
+      width: 100%; padding: 0.9rem 1rem;
+      font-family: 'Inter', sans-serif; font-size: 0.8rem; font-weight: 300;
+      border: 1px solid var(--line); background: white;
+      color: var(--text); outline: none; transition: border-color 0.3s;
+    }
+    .form-input::placeholder { color: #bbb; }
+    .form-input:focus { border-color: var(--text); }
+    .lookup-error {
+      font-size: 0.7rem; font-weight: 400; color: #c44;
+      margin-top: 0.5rem; display: none;
+    }
+    .lookup-error.visible { display: block; }
+
+    .party-list { margin: 1.5rem 0; }
+    .party-member {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 1.2rem; border: 1px solid var(--line); margin-bottom: 0.5rem;
+    }
+    .party-member-name { font-size: 0.85rem; font-weight: 500; }
+    .party-member-check {
+      font-size: 0.58rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-light);
+    }
+
+    .person-events { margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--line); }
+    .person-events:last-child { border-bottom: none; margin-bottom: 0; }
+    .person-events-name {
+      font-family: 'The Impressionist', cursive; font-size: 1.5rem;
+      color: var(--burgundy); margin-bottom: 1rem;
+    }
+    .event-option {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.85rem 1.1rem; border: 1px solid var(--line);
+      margin-bottom: 0.4rem; cursor: pointer; transition: all 0.25s;
+      user-select: none;
+    }
+    .event-option:hover { border-color: var(--text); }
+    .event-option.selected { border-color: var(--text); background: rgba(0,0,0,0.02); }
+    .event-option-left { display: flex; flex-direction: column; }
+    .event-name {
+      font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+    }
+    .event-detail {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.9rem; color: var(--text-light); margin-top: 0.15rem;
+    }
+    .event-check {
+      width: 20px; height: 20px; border-radius: 50%;
+      border: 1.5px solid var(--line); flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.25s;
+    }
+    .event-option.selected .event-check { background: var(--text); border-color: var(--text); }
+    .event-option.selected .event-check::after { content: '\2713'; color: white; font-size: 0.6rem; }
+
+    .decline-option { text-align: center; margin-top: 0.7rem; }
+    .decline-link {
+      font-size: 0.55rem; font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-light);
+      cursor: pointer; border: none; background: none;
+      text-decoration: underline; text-underline-offset: 3px;
+    }
+    .decline-link:hover { color: var(--text); }
+
+    .confirmation-icon {
+      width: 56px; height: 56px; margin: 0 auto 1.5rem; border-radius: 50%;
+      background: var(--cream);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; color: var(--burgundy);
+    }
+    .confirmation-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; color: var(--text-mid); line-height: 1.8;
+      max-width: 360px; margin: 0 auto;
+    }
+    .step-actions { display: flex; gap: 0.8rem; margin-top: 2rem; justify-content: center; }
+    .step-actions .btn { flex: 1; max-width: 200px; justify-content: center; }
+    .step-dots { display: flex; gap: 0.4rem; justify-content: center; margin: 1.5rem 0 0.5rem; }
+    .step-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--line); transition: all 0.3s; }
+    .step-dot.active { background: var(--text); width: 18px; border-radius: 3px; }
+
+    /* ── FADE-IN ── */
+    .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 1s ease, transform 1s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .menu-toggle { display: block; }
+      nav ul {
+        display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+        flex-direction: column; background: rgba(0,0,0,0.95);
+        padding: 6rem 3rem; gap: 2rem; z-index: 200;
+      }
+      nav ul.open { display: flex; }
+      nav { padding: 1.5rem 2rem; }
+      .hero { padding: 2rem; }
+      .hero-title { font-size: 2.5rem; }
+      .hero-float { display: none; }
+      .hero-scroll { right: 2rem; bottom: 2rem; }
+      .section-pad { padding: 5rem 2rem; }
+      .section-pad-lg { padding: 7rem 2rem; }
+      .split-intro, .split-section, .bios { grid-template-columns: 1fr; gap: 2rem; }
+      .essay-section { grid-template-columns: 1fr; }
+      .essay-photo-wrap { position: relative; height: 50vh; }
+      .essay-body { padding: 4rem 2rem 6rem; }
+      .scroll-gallery-item { width: 260px; height: 260px; }
+      .scroll-gallery { gap: 0.8rem; padding: 0 1.2rem 1rem; }
+      .list-item { grid-template-columns: 1fr; gap: 0.8rem; }
+      .float-photo-1 { width: 140px; height: 185px; top: 2%; left: 3%; }
+      .float-photo-2 { width: 120px; height: 155px; top: 2%; right: 3%; }
+      .float-photo-3 { width: 150px; height: 195px; bottom: 3%; right: 5%; }
+      .float-photo-4 { width: 130px; height: 175px; bottom: 3%; left: 3%; }
+      .registry-floating { min-height: 80vh; padding: 6rem 1.5rem; }
+      footer { flex-direction: column; gap: 1rem; text-align: center; padding: 2rem; }
+      .modal-body { padding: 1.5rem; }
+      .modal-header { padding: 2rem 1.5rem 0; }
+      .name-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="logo">Jillian + Luke</a>
+    <button class="menu-toggle" aria-label="Menu" onclick="document.querySelector('nav ul').classList.toggle('open')">
+      <span></span><span></span><span></span>
+    </button>
+    <ul>
+      <li><a href="#gallery">Gallery</a></li>
+      <li><a href="#rsvp">RSVP</a></li>
+      <li><a href="#registry">Registry</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="assets/images/hero.jpg" alt="Jillian and Luke">
+    </div>
+    <div class="hero-content">
+      <div class="hero-label">The Wildings &nbsp;|&nbsp; May 2026</div>
+      <h1 class="hero-title"><span class="forever">Forever.</span><span class="endlessly">Endlessly.</span></h1>
+    </div>
+    <div class="hero-scroll">Scroll for more</div>
+  </section>
+
+  <!-- GALLERY INTRO -->
+  <section class="section-pad-lg" id="gallery">
+    <div class="bio-name fade-in" style="text-align:center;margin-bottom:4rem;">Hey! We're getting married.</div>
+    <!-- BIOS -->
+    <div class="bios fade-in">
+      <div class="bio-card">
+        <p class="bio-text">Oregon-raised, marketing-employed, sunshine-loving gal with an affinity for writing, banana muffins, Formula 1, and, of course, Luke Wilding.</p>
+        <div class="bio-name">Jillian Peterson</div>
+        <div class="bio-role">Bride</div>
+      </div>
+      <div class="bio-card">
+        <p class="bio-text">Utah-born, IT-employed, running-loving guy with an affinity for movies, Spartan races, caffeinated beverages, and, of course, Jillian Peterson.</p>
+        <div class="bio-name">Luke Wilding</div>
+        <div class="bio-role">Groom</div>
+      </div>
+    </div>
+
+    <div class="scroll-gallery-wrap fade-in">
+      <div class="scroll-gallery">
+        <div class="scroll-gallery-item"><img src="assets/images/scroll-4.jpg" alt="Jillian and Luke" loading="lazy"></div>
+        <div class="scroll-gallery-item"><img src="assets/images/scroll-1.jpg" alt="Jillian and Luke" loading="lazy"></div>
+        <div class="scroll-gallery-item"><img src="assets/images/scroll-9.jpg" alt="Jillian and Luke" loading="lazy"></div>
+        <div class="scroll-gallery-item"><img src="assets/images/scroll-8.jpg" alt="Jillian and Luke" loading="lazy"></div>
+        <div class="scroll-gallery-item"><img src="assets/images/scroll-2.jpg" alt="Jillian and Luke" loading="lazy"></div>
+        <div class="scroll-gallery-item"><img src="assets/images/scroll-5.jpg" alt="Jillian and Luke" loading="lazy"></div>
+        <div class="scroll-gallery-item"><img src="assets/images/scroll-10.jpg" alt="Jillian and Luke" loading="lazy"></div>
+        <div class="scroll-gallery-item"><img src="assets/images/scroll-3.jpg" alt="Jillian and Luke" loading="lazy"></div>
+        <div class="scroll-gallery-item"><img src="assets/images/scroll-6.jpg" alt="Jillian and Luke" loading="lazy"></div>
+        <div class="scroll-gallery-item"><img src="assets/images/scroll-7.jpg" alt="Jillian and Luke" loading="lazy"></div>
+        <div class="scroll-gallery-item"><img src="assets/images/scroll-11.jpg" alt="Jillian and Luke" loading="lazy"></div>
+        <div class="scroll-gallery-item"><img src="assets/images/scroll-14.jpg" alt="Jillian and Luke" loading="lazy"></div>
+        <div class="scroll-gallery-item"><img src="assets/images/scroll-13.jpg" alt="Jillian and Luke" loading="lazy"></div>
+        <div class="scroll-gallery-item"><img src="assets/images/scroll-12.jpg" alt="Jillian and Luke" loading="lazy"></div>
+      </div>
+      <div class="scroll-hint" id="scrollHint">
+        <span>Drag to explore</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- RSVP -->
+  <section class="section-pad" id="rsvp">
+    <div class="split-section fade-in">
+      <div>
+        <h2 class="bold-heading">We Would<br>Love To<br><span style="font-family:'The Impressionist',cursive;font-weight:normal;text-transform:none;font-size:1.15em;display:inline-block;padding:0.15em 0;line-height:1.4;">Celebrate</span><br>With You</h2>
+      </div>
+      <div>
+        <p class="body-text" style="margin-bottom: 3rem;">Please let us know if you can make it. Your presence means the world to us.</p>
+        <button class="btn btn-dark btn-arrow" onclick="openRSVP()">RSVP Now</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPEN HOUSES -->
+  <section class="section-pad" id="openhouses" style="background: var(--off-white);">
+    <div class="fade-in">
+      <p class="body-text" style="max-width:560px;margin-bottom:3rem;">Our wedding will be an intimate celebration with close friends and family. We would love to see you at one of our open houses.</p>
+      <div class="list-item">
+        <div class="item-title">Utah Open House</div>
+        <div class="item-detail">June 24th, 2026<br>Time &amp; address TBD</div>
+      </div>
+      <div class="list-item">
+        <div class="item-title">Oregon Open House</div>
+        <div class="item-detail">June 26th, 2026<br>Time &amp; address TBD</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REGISTRY — FLOATING PHOTOS -->
+  <section class="registry-floating" id="registry">
+    <div class="float-photo float-photo-1 fade-in">
+      <img src="assets/images/reg-bl.jpg" alt="Jillian and Luke">
+    </div>
+    <div class="float-photo float-photo-2 fade-in">
+      <img src="assets/images/g6.jpg" alt="Jillian and Luke">
+    </div>
+    <div class="float-photo float-photo-3 fade-in">
+      <img src="assets/images/g1.jpg" alt="Jillian and Luke">
+    </div>
+    <div class="float-photo float-photo-4 fade-in">
+      <img src="assets/images/g5.jpg" alt="Jillian and Luke">
+    </div>
+    <div class="reg-center fade-in">
+      <div class="label-text">Gifts</div>
+      <h2>Your Presence Is<br>The Greatest Gift</h2>
+      <a href="#" class="btn btn-dark btn-arrow">View Our Registry</a>
+    </div>
+  </section>
+
+  <!-- SPOTIFY -->
+  <section class="section-pad">
+    <div class="fade-in">
+      <div class="label-text" style="text-align:center;margin-bottom:2rem;">Our Playlist</div>
+      <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:2.5rem;align-items:center;max-width:1000px;margin:0 auto;">
+        <p class="item-title" style="text-align:right;line-height:1.6;">Can't wait to get the party started? Neither can we. Here's a little taste in the meantime.</p>
+        <iframe style="border-radius:12px;flex-shrink:0;" src="https://open.spotify.com/embed/playlist/2CEnXGYVPx3I44sF02VKcr?utm_source=generator&theme=0" width="352" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        <p class="item-title" style="text-align:left;line-height:1.6;">Disclaimer: Jillian will probably add and remove songs up until the night before. So maybe don't get too attached.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ESSAY -->
+  <section class="essay-section">
+    <div class="essay-photo-wrap">
+      <img src="assets/images/essay-photo.jpg" alt="Jillian and Luke">
+    </div>
+    <div class="essay-body fade-in">
+      <p>The time will come when you decide that you would burn for the other even if there were no wind.</p>
+      <p>Even if the world were anoxic and flooded. Even if the rocks upon which sparks once flew disappeared. If your branches never turned to embers, if no one stoked the coals, you would burn.</p>
+      <p>There is nothing else. No one else.</p>
+      <p>Thus begins a marriage. Thus begins, <em>I will burn brighter when you dwindle</em>, and <em>we will keep each other warm</em>. We will rage on, together, in the pursuit of persisting love.</p>
+      <p>Relentlessly tame by decision, for devotion, and not swept up in the deluge of options, opinions, or obligations. None of it is forced. It is the convergence of two forces of nature, forces who are choosing to nurture fate. To nurture fate, and love it.</p>
+      <p class="essay-closing">Forever. Endlessly.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span>The Wildings &nbsp;|&nbsp; May 2026</span>
+  </footer>
+
+  <!-- RSVP MODAL -->
+  <div class="modal-overlay" id="rsvpModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeRSVP()">&times;</button>
+      <div class="step active" id="step1">
+        <div class="modal-header">
+          <div class="modal-title">RSVP</div>
+          <div class="modal-subtitle">Enter your name to find your invitation</div>
+        </div>
+        <div class="step-dots"><div class="step-dot active"></div><div class="step-dot"></div><div class="step-dot"></div></div>
+        <div class="modal-body">
+          <div class="name-row">
+            <input type="text" class="form-input" id="firstName" placeholder="First name" autocomplete="given-name">
+            <input type="text" class="form-input" id="lastName" placeholder="Last name" autocomplete="family-name">
+          </div>
+          <div class="lookup-error" id="lookupError"></div>
+          <div class="step-actions"><button class="btn btn-dark" onclick="lookupGuest()">Find My Invitation</button></div>
+        </div>
+      </div>
+      <div class="step" id="step2">
+        <div class="modal-header">
+          <div class="modal-title">Your Party</div>
+          <div class="modal-subtitle">We found your invitation</div>
+        </div>
+        <div class="step-dots"><div class="step-dot"></div><div class="step-dot active"></div><div class="step-dot"></div></div>
+        <div class="modal-body">
+          <div class="party-list" id="partyList"></div>
+          <div class="step-actions">
+            <button class="btn btn-outline-dark" onclick="goToStep(1)">Back</button>
+            <button class="btn btn-dark" onclick="goToStep(3)">Continue</button>
+          </div>
+        </div>
+      </div>
+      <div class="step" id="step3">
+        <div class="modal-header">
+          <div class="modal-title">Events</div>
+          <div class="modal-subtitle">Select which events each guest will attend</div>
+        </div>
+        <div class="step-dots"><div class="step-dot"></div><div class="step-dot"></div><div class="step-dot active"></div></div>
+        <div class="modal-body">
+          <div id="eventsContainer"></div>
+          <div class="step-actions">
+            <button class="btn btn-outline-dark" onclick="goToStep(2)">Back</button>
+            <button class="btn btn-dark" onclick="submitRSVP()">Submit RSVP</button>
+          </div>
+        </div>
+      </div>
+      <div class="step" id="step4">
+        <div class="modal-header"><div class="modal-title">Thank You</div></div>
+        <div class="modal-body" style="text-align:center;">
+          <div class="confirmation-icon">&#9829;</div>
+          <p class="confirmation-text" id="confirmationText">We're so excited to celebrate with you!</p>
+          <div class="step-actions" style="margin-top:2.5rem;"><button class="btn btn-dark" onclick="closeRSVP()">Close</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const EVENT_DETAILS = {
+      sealing:       { name: "Sealing",          detail: "May 29, 2:00 PM · Oquirrh Mountain Temple" },
+      dinner:        { name: "Dinner",           detail: "May 29, 5:00 PM · The Azalea" },
+      reception:     { name: "Reception",        detail: "May 29, 7:00 PM · The Azalea" },
+      openhouse_ut:  { name: "Utah Open House",  detail: "June 24th · Time & address TBD" },
+      openhouse_or:  { name: "Oregon Open House", detail: "June 26th · Time & address TBD" }
+    };
+    // Wedding events vs open house events
+    const WEDDING_EVENTS = ["sealing", "dinner", "reception"];
+    const OPENHOUSE_EVENTS = ["openhouse_ut", "openhouse_or"];
+
+    const GUESTS = [
+      { first:"Test",   last:"Test",    familyId:"test-1",    events:["sealing","dinner","reception"] },
+      { first:"John",   last:"Smith",   familyId:"smith-1",   events:["sealing","dinner","reception"] },
+      { first:"Jane",   last:"Smith",   familyId:"smith-1",   events:["sealing","dinner","reception"] },
+      { first:"Emily",  last:"Smith",   familyId:"smith-1",   events:["reception"] },
+      { first:"Sarah",  last:"Johnson", familyId:"johnson-1", events:["openhouse"] },
+      { first:"Carlos", last:"Garcia",  familyId:"garcia-1",  events:["dinner","reception"] },
+      { first:"Maria",  last:"Garcia",  familyId:"garcia-1",  events:["dinner","reception"] },
+    ];
+
+    let currentFamily = [], rsvpSelections = {};
+
+    function openRSVP() {
+      document.getElementById('rsvpModal').classList.add('active');
+      document.body.style.overflow = 'hidden'; resetForm();
+    }
+    function closeRSVP() {
+      document.getElementById('rsvpModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    function resetForm() {
+      document.getElementById('firstName').value = '';
+      document.getElementById('lastName').value = '';
+      document.getElementById('lookupError').classList.remove('visible');
+      currentFamily = []; rsvpSelections = {}; goToStep(1);
+    }
+    function goToStep(n) {
+      document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+      document.getElementById('step' + n).classList.add('active');
+      if (n === 3) {
+        const ohOnly = currentFamily.every(m => isOpenHouseOnly(m));
+        document.querySelector('#step3 .modal-title').textContent = ohOnly ? 'Open Houses' : 'Events';
+        document.querySelector('#step3 .modal-subtitle').textContent = ohOnly ? 'Which open house would you like to attend?' : 'Select which events each guest will attend';
+        buildEventSelections();
+      }
+    }
+    function lookupGuest() {
+      const first = document.getElementById('firstName').value.trim().toLowerCase();
+      const last  = document.getElementById('lastName').value.trim().toLowerCase();
+      const err   = document.getElementById('lookupError');
+      if (!first || !last) { err.textContent = 'Please enter both your first and last name.'; err.classList.add('visible'); return; }
+      const guest = GUESTS.find(g => g.first.toLowerCase() === first && g.last.toLowerCase() === last);
+      if (!guest) { err.textContent = "We couldn\u2019t find that name on our guest list. Please check the spelling or try the name on your invitation."; err.classList.add('visible'); return; }
+      err.classList.remove('visible');
+      currentFamily = GUESTS.filter(g => g.familyId === guest.familyId);
+      rsvpSelections = {};
+      currentFamily.forEach(m => { rsvpSelections[m.first + ' ' + m.last] = { attending: [], declining: false }; });
+      buildPartyList(); goToStep(2);
+    }
+    document.getElementById('firstName').addEventListener('keydown', e => { if (e.key === 'Enter') lookupGuest(); });
+    document.getElementById('lastName').addEventListener('keydown', e => { if (e.key === 'Enter') lookupGuest(); });
+
+    function buildPartyList() {
+      const list = document.getElementById('partyList'); list.innerHTML = '';
+      const ohOnly = currentFamily.every(m => isOpenHouseOnly(m));
+      currentFamily.forEach(m => {
+        const d = document.createElement('div'); d.className = 'party-member';
+        const evCount = getDisplayEvents(m).length;
+        const label = ohOnly ? 'Open Houses' : evCount + ' event' + (evCount > 1 ? 's' : '');
+        d.innerHTML = '<span class="party-member-name">' + m.first + ' ' + m.last + '</span><span class="party-member-check">' + label + '</span>';
+        list.appendChild(d);
+      });
+    }
+    function isOpenHouseOnly(member) {
+      return !member.events.some(e => WEDDING_EVENTS.includes(e));
+    }
+    function getDisplayEvents(member) {
+      if (isOpenHouseOnly(member)) return OPENHOUSE_EVENTS;
+      return member.events.filter(e => WEDDING_EVENTS.includes(e));
+    }
+    function buildEventSelections() {
+      const c = document.getElementById('eventsContainer'); c.innerHTML = '';
+      const ohOnly = currentFamily.every(m => isOpenHouseOnly(m));
+      if (ohOnly) {
+        // Open house guests: show open house options once for the whole family
+        const sec = document.createElement('div'); sec.className = 'person-events';
+        let html = '<div class="person-events-name">Which open house can you attend?</div>';
+        OPENHOUSE_EVENTS.forEach(eid => {
+          const ev = EVENT_DETAILS[eid];
+          const famKey = currentFamily[0].first + ' ' + currentFamily[0].last;
+          const sel = rsvpSelections[famKey].attending.includes(eid);
+          html += '<div class="event-option' + (sel ? ' selected' : '') + '" onclick="toggleOpenHouse(\'' + eid + '\',this)"><div class="event-option-left"><span class="event-name">' + ev.name + '</span><span class="event-detail">' + ev.detail + '</span></div><div class="event-check"></div></div>';
+        });
+        const famKey = currentFamily[0].first + ' ' + currentFamily[0].last;
+        html += '<div class="decline-option"><button class="decline-link" onclick="toggleDeclineAll()" id="decline-all">' + (rsvpSelections[famKey].declining ? '\u2713 Regretfully declining' : 'Regretfully decline all') + '</button></div>';
+        sec.innerHTML = html; c.appendChild(sec);
+      } else {
+        // Wedding guests: show per-person event selections
+        currentFamily.forEach(member => {
+          const key = member.first + ' ' + member.last;
+          const sec = document.createElement('div'); sec.className = 'person-events';
+          let html = '<div class="person-events-name">' + member.first + ' ' + member.last + '</div>';
+          getDisplayEvents(member).forEach(eid => {
+            const ev = EVENT_DETAILS[eid], sel = rsvpSelections[key].attending.includes(eid);
+            html += '<div class="event-option' + (sel ? ' selected' : '') + '" onclick="toggleEvent(\'' + key + '\',\'' + eid + '\',this)"><div class="event-option-left"><span class="event-name">' + ev.name + '</span><span class="event-detail">' + ev.detail + '</span></div><div class="event-check"></div></div>';
+          });
+          html += '<div class="decline-option"><button class="decline-link" onclick="toggleDecline(\'' + key + '\')" id="decline-' + key.replace(/\s/g, '-') + '">' + (rsvpSelections[key].declining ? '\u2713 Regretfully declining' : 'Regretfully decline all') + '</button></div>';
+          sec.innerHTML = html; c.appendChild(sec);
+        });
+      }
+    }
+    function toggleOpenHouse(eid, el) {
+      // For open house guests, toggle for the whole family at once
+      currentFamily.forEach(m => {
+        const k = m.first + ' ' + m.last, s = rsvpSelections[k];
+        s.declining = false;
+        const i = s.attending.indexOf(eid);
+        if (i > -1) s.attending.splice(i, 1);
+        else s.attending.push(eid);
+      });
+      buildEventSelections();
+    }
+    function toggleDeclineAll() {
+      const declining = !rsvpSelections[currentFamily[0].first + ' ' + currentFamily[0].last].declining;
+      currentFamily.forEach(m => {
+        const k = m.first + ' ' + m.last;
+        rsvpSelections[k].declining = declining;
+        if (declining) rsvpSelections[k].attending = [];
+      });
+      buildEventSelections();
+    }
+    function toggleEvent(pk, eid, el) {
+      const s = rsvpSelections[pk]; if (s.declining) s.declining = false;
+      const i = s.attending.indexOf(eid);
+      if (i > -1) { s.attending.splice(i, 1); el.classList.remove('selected'); }
+      else { s.attending.push(eid); el.classList.add('selected'); }
+      const db = document.getElementById('decline-' + pk.replace(/\s/g, '-'));
+      if (db) db.textContent = 'Regretfully decline all';
+    }
+    function toggleDecline(pk) {
+      const s = rsvpSelections[pk]; s.declining = !s.declining;
+      if (s.declining) s.attending = [];
+      buildEventSelections();
+    }
+    function submitRSVP() {
+      const ohOnly = currentFamily.every(m => isOpenHouseOnly(m));
+      if (ohOnly) {
+        const k = currentFamily[0].first + ' ' + currentFamily[0].last, s = rsvpSelections[k];
+        if (!s.declining && s.attending.length === 0) { alert('Please select at least one open house, or choose to decline.'); return; }
+      } else {
+        for (const m of currentFamily) {
+          const k = m.first + ' ' + m.last, s = rsvpSelections[k];
+          if (!s.declining && s.attending.length === 0) { alert('Please select at least one event for ' + k + ', or choose to decline.'); return; }
+        }
+      }
+      const subs = currentFamily.map(m => {
+        const k = m.first + ' ' + m.last, s = rsvpSelections[k];
+        return { name: k, attending: s.declining ? 'Declining' : s.attending.map(e => EVENT_DETAILS[e].name).join(', '), declining: s.declining, timestamp: new Date().toISOString() };
+      });
+      const GOOGLE_SCRIPT_URL = '';
+      if (GOOGLE_SCRIPT_URL) {
+        fetch(GOOGLE_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ responses: subs }) }).catch(() => {});
+      }
+      const att = subs.filter(s => !s.declining), dec = subs.filter(s => s.declining);
+      let msg = att.length ? "We\u2019re so excited to celebrate with you! See you soon." : "We\u2019ll miss you! Thank you for letting us know.";
+      if (dec.length && att.length) msg += ' We\u2019ll miss ' + dec.map(d => d.name.split(' ')[0]).join(' & ') + ' but understand.';
+      document.getElementById('confirmationText').textContent = msg;
+      goToStep(4);
+    }
+
+    document.getElementById('rsvpModal').addEventListener('click', function(e) { if (e.target === this) closeRSVP(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeRSVP(); });
+
+    // Fade in observer
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+    document.querySelectorAll('nav ul a').forEach(l => l.addEventListener('click', () => document.querySelector('nav ul').classList.remove('open')));
+
+    // Drag-to-scroll gallery
+    const gallery = document.querySelector('.scroll-gallery');
+    const scrollHint = document.getElementById('scrollHint');
+    if (gallery) {
+      let isDown = false, startX, scrollLeft;
+      gallery.addEventListener('mousedown', e => {
+        isDown = true; gallery.classList.add('dragging');
+        startX = e.pageX - gallery.offsetLeft;
+        scrollLeft = gallery.scrollLeft;
+      });
+      gallery.addEventListener('mouseleave', () => { isDown = false; gallery.classList.remove('dragging'); });
+      gallery.addEventListener('mouseup', () => { isDown = false; gallery.classList.remove('dragging'); });
+      gallery.addEventListener('mousemove', e => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - gallery.offsetLeft;
+        gallery.scrollLeft = scrollLeft - (x - startX) * 1.5;
+      });
+      // Hide hint on first scroll
+      gallery.addEventListener('scroll', () => {
+        if (scrollHint && gallery.scrollLeft > 20) scrollHint.classList.add('hidden');
+      }, { passive: true });
+    }
+
+    // Subtle parallax on floating photos
+    document.addEventListener('mousemove', e => {
+      const photos = document.querySelectorAll('.float-photo');
+      const cx = e.clientX / window.innerWidth - 0.5;
+      const cy = e.clientY / window.innerHeight - 0.5;
+      photos.forEach((p, i) => {
+        const speed = (i + 1) * 6;
+        p.style.transform = `translate(${cx * speed}px, ${cy * speed}px)`;
+      });
+    });
+  </script>
+</body>
+</html>

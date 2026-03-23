@@ -1,0 +1,53 @@
+GOOGLE SHEETS RSVP SETUP
+========================
+
+Follow these steps to connect your RSVP form to a Google Sheet:
+
+1. CREATE THE SHEET
+   - Go to sheets.google.com and create a new spreadsheet
+   - Name it "Wedding RSVPs"
+   - In row 1, add these headers:
+     A1: Timestamp
+     B1: Name
+     C1: Attending
+     D1: Declining
+
+2. SET UP THE APPS SCRIPT
+   - In your Google Sheet, go to Extensions > Apps Script
+   - Delete any existing code and paste this:
+
+   ─────────────────────────────────────────
+   function doPost(e) {
+     var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+     var data = JSON.parse(e.postData.contents);
+
+     data.responses.forEach(function(r) {
+       sheet.appendRow([
+         r.timestamp,
+         r.name,
+         r.attending,
+         r.declining ? "Yes" : "No"
+       ]);
+     });
+
+     return ContentService
+       .createTextOutput(JSON.stringify({ status: "ok" }))
+       .setMimeType(ContentService.MimeType.JSON);
+   }
+   ─────────────────────────────────────────
+
+3. DEPLOY THE SCRIPT
+   - Click "Deploy" > "New deployment"
+   - Type: "Web app"
+   - Execute as: "Me"
+   - Who has access: "Anyone"
+   - Click "Deploy" and authorize when prompted
+   - Copy the URL it gives you
+
+4. ADD THE URL TO YOUR WEBSITE
+   - Open index.html
+   - Find this line:  const GOOGLE_SCRIPT_URL = '';
+   - Paste your URL between the quotes
+   - Save the file
+
+That's it! RSVP responses will now appear in your Google Sheet automatically.
