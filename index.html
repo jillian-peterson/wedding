@@ -72,7 +72,7 @@
     }
     .hero-bg img {
       width: 100%; height: 100%; object-fit: cover;
-      object-position: 35% center;
+      object-position: center center;
       filter: brightness(0.7);
     }
     .hero-content {
@@ -761,18 +761,16 @@
     // Column mapping: First Name, Last Name, FamilyID, Sealing, Sealing RSVP, Dinner, Dinner RSVP, Reception, Reception RSVP
     // Future open house columns: Utah Open House, Utah OH RSVP, Oregon Open House, Oregon OH RSVP
     function parseCSV(csv) {
-      const lines = csv.split('\n').map(l => l.trim()).filter(l => l);
+      const lines = csv.replace(/\r/g, '').split('\n').map(l => l.trim()).filter(l => l);
       const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
+      const colMap = { 'sealing': 'sealing', 'dinner': 'dinner', 'reception': 'reception', 'utah open house': 'openhouse_ut', 'oregon open house': 'openhouse_or' };
       const guests = [];
       for (let i = 1; i < lines.length; i++) {
-        // Handle commas inside quoted fields
-        const row = lines[i].match(/(".*?"|[^,]+)/g)?.map(v => v.replace(/^"|"$/g, '').trim()) || [];
+        const row = lines[i].split(',').map(v => v.trim());
         if (row.length < 4) continue;
         const first = row[0], last = row[1], familyId = row[2];
         if (!first || !last) continue;
         const events = [];
-        // Map columns to events
-        const colMap = { 'sealing': 'sealing', 'dinner': 'dinner', 'reception': 'reception', 'utah open house': 'openhouse_ut', 'oregon open house': 'openhouse_or' };
         headers.forEach((h, idx) => {
           const eventKey = colMap[h];
           if (eventKey && row[idx] && row[idx].toLowerCase() === 'true') {
@@ -860,8 +858,17 @@
       if (!first || !last) { err.textContent = 'Please enter both your first and last name.'; err.classList.add('visible'); return; }
       if (!guestsLoaded || GUESTS.length === 0) { err.textContent = 'Still loading the guest list — please try again in a moment.'; err.classList.add('visible'); loadGuests(); return; }
       const guest = GUESTS.find(g => g.first.toLowerCase() === first && g.last.toLowerCase() === last);
-      if (!guest) { err.textContent = "We couldn\u2019t find that name on our guest list. Please check the spelling or try the name on your invitation."; err.classList.add('visible'); return; }
       err.classList.remove('visible');
+      if (!guest) {
+        // Name not on list — send to open house selection
+        const displayFirst = document.getElementById('firstName').value.trim();
+        const displayLast = document.getElementById('lastName').value.trim();
+        currentFamily = [{ first: displayFirst, last: displayLast, familyId: '_openhouse', events: ['openhouse'] }];
+        rsvpSelections = {};
+        rsvpSelections[displayFirst + ' ' + displayLast] = { attending: [], declining: false };
+        goToStep(3);
+        return;
+      }
       currentFamily = GUESTS.filter(g => g.familyId === guest.familyId);
       rsvpSelections = {};
       currentFamily.forEach(m => { rsvpSelections[m.first + ' ' + m.last] = { attending: [], declining: false }; });
@@ -967,7 +974,7 @@
         const k = m.first + ' ' + m.last, s = rsvpSelections[k];
         return { name: k, attending: s.declining ? 'Declining' : s.attending.map(e => EVENT_DETAILS[e].name).join(', '), declining: s.declining, timestamp: new Date().toISOString() };
       });
-      const GOOGLE_SCRIPT_URL = '';
+      const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxmCMP4JqH3iyuO8DxIgy0nk8hZxKx-ze1Dg1WnvZoDkPDSOjCs6-5D2ghuKK4nH1K4QQ/exec';
       if (GOOGLE_SCRIPT_URL) {
         fetch(GOOGLE_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ responses: subs }) }).catch(() => {});
       }
