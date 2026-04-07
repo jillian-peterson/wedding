@@ -1001,7 +1001,7 @@
       });
       const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxmCMP4JqH3iyuO8DxIgy0nk8hZxKx-ze1Dg1WnvZoDkPDSOjCs6-5D2ghuKK4nH1K4QQ/exec';
       if (GOOGLE_SCRIPT_URL) {
-        fetch(GOOGLE_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ responses: subs }) }).catch(() => {});
+        fetch(GOOGLE_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ responses: subs }) }).catch(err => console.error('RSVP submit error:', err));
       }
       const att = subs.filter(s => !s.declining), dec = subs.filter(s => s.declining);
       let msg = att.length ? "We\u2019re so excited to celebrate with you! See you soon." : "We\u2019ll miss you! Thank you for letting us know.";
