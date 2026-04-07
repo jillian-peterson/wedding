@@ -334,6 +334,7 @@
     }
     .btn-outline-dark:hover { background: var(--text); color: white; }
     .btn-arrow::after { content: '\2197'; font-size: 0.8rem; }
+    @media (max-width: 900px) { .btn-arrow::after { display: none; } }
 
     /* ── FOOTER ── */
     footer {
@@ -662,7 +663,7 @@
       </div>
       <div class="list-item">
         <div class="item-title">Oregon Open House</div>
-        <div class="item-detail">Saturday, June 27th, 2026 · 6:30 PM<br>91370 Triple Oaks Dr, Eugene, OR 97408</div>
+        <div class="item-detail">June 27th, 2026 · 6:30 PM<br>91370 Triple Oaks Dr, Eugene, OR 97408</div>
       </div>
     </div>
   </section>
@@ -780,7 +781,7 @@
       dinner:        { name: "Dinner",           detail: "May 29, 5:00 PM · The Azalea" },
       reception:     { name: "Reception",        detail: "May 29, 7:00 PM · The Azalea" },
       openhouse_ut:  { name: "Utah Open House",  detail: "June 24th · 7:00 – 9:00 PM · Cedar Hills, UT" },
-      openhouse_or:  { name: "Oregon Open House", detail: "Saturday, June 27th · 6:30 PM · Eugene, OR" }
+      openhouse_or:  { name: "Oregon Open House", detail: "June 27th · 6:30 PM · Eugene, OR" }
     };
     const WEDDING_EVENTS = ["sealing", "dinner", "reception"];
     const OPENHOUSE_EVENTS = ["openhouse_ut", "openhouse_or"];
