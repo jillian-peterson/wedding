@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jillian + Luke</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%231A1A1A'/><text x='16' y='21' font-family='Inter,sans-serif' font-weight='700' font-size='11' fill='white' text-anchor='middle' letter-spacing='-0.5'>J+L</text></svg>">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M16 28s-11-7.2-11-14.5C5 9.4 8.1 6 12 6c2.2 0 3.7 1.2 4 1.5C16.3 7.2 17.8 6 20 6c3.9 0 7 3.4 7 7.5C27 20.8 16 28 16 28z' fill='%231A1A1A'/></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
@@ -58,6 +58,7 @@
     .menu-toggle {
       display: none; background: none; border: none; cursor: pointer; padding: 0.5rem;
     }
+    .mobile-close { display: none; }
     .menu-toggle span {
       display: block; width: 24px; height: 1.5px; background: var(--text); margin: 5px 0;
     }
@@ -71,6 +72,7 @@
     .hero-bg {
       position: absolute; inset: 0; z-index: 0;
     }
+    .hero-bg picture { display: contents; }
     .hero-bg img {
       width: 100%; height: 100%; object-fit: cover;
       object-position: center center;
@@ -477,6 +479,7 @@
       }
       nav ul.open { display: flex; }
       nav ul a { color: white; font-size: 1rem; }
+      .mobile-close { display: list-item; list-style: none; margin-bottom: 1rem; }
       nav { padding: 1.5rem 1.5rem; }
 
       /* Hero */
@@ -573,6 +576,7 @@
       <span></span><span></span><span></span>
     </button>
     <ul>
+      <li class="mobile-close"><button onclick="document.querySelector('nav ul').classList.remove('open')" style="background:none;border:none;color:white;font-family:'Inter',sans-serif;font-weight:500;font-size:0.7rem;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;padding:0;">&larr; Back</button></li>
       <li><a href="#gallery">Gallery</a></li>
       <li><a href="#rsvp">RSVP</a></li>
       <li><a href="#registry">Registry</a></li>
@@ -582,7 +586,10 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-bg">
-      <img src="assets/images/hero.jpg" alt="Jillian and Luke">
+      <picture>
+        <source media="(max-width: 900px)" srcset="assets/images/mobilehero.jpg">
+        <img src="assets/images/hero.jpg" alt="Jillian and Luke">
+      </picture>
     </div>
     <div class="hero-content">
       <div class="hero-label">The Wildings &nbsp;|&nbsp; May 2026</div>
@@ -999,7 +1006,7 @@
         const k = m.first + ' ' + m.last, s = rsvpSelections[k];
         return { name: k, attending: s.declining ? 'Declining' : s.attending.map(e => EVENT_DETAILS[e].name).join(', '), declining: s.declining, timestamp: new Date().toISOString() };
       });
-      const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxmCMP4JqH3iyuO8DxIgy0nk8hZxKx-ze1Dg1WnvZoDkPDSOjCs6-5D2ghuKK4nH1K4QQ/exec';
+      const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx3-VRQJDXix0nPZVRrsY78pAiy4yPS15TiCx36sVqLbftiOaKg7ZzXfjalRubJrcl0gg/exec';
       if (GOOGLE_SCRIPT_URL) {
         fetch(GOOGLE_SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ responses: subs }) }).catch(err => console.error('RSVP submit error:', err));
       }
